@@ -1,0 +1,11 @@
+.main__section {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    background-color: aquamarine;
+    
+    
+}

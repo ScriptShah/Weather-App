@@ -5,9 +5,11 @@ import WeatherStatics from './components/WeatherStatics';
 import { slideAnimation } from './config/motion';
 
 
+
 function App() {
   return (
-    <>
+
+    <div className="main__section">
       <AnimatePresence>
         <motion.section>
           <motion.div {...slideAnimation('up')}>
@@ -21,7 +23,8 @@ function App() {
           </motion.div>
         </motion.section>
       </AnimatePresence>
-    </>
+    </div>  
+
   )
 }
 

@@ -2,17 +2,77 @@ import axios from "axios";
 
 
 // Get an array and return a random element
-const randSelect = (ImageArray) => {
+export const randSelect = (ImageArray) => {
     const selector = Math.floor(Math.random * ImageArray.length);
     return ImageArray[selector];
 }
 
 
 
-const getWeather = (city)=>{
-    axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=93a984c2321bd24125311f8482e7f687`).
+export const getWeather = (city)=>{
+    
+     axios.get(`https://api.weatherapi.com/v1/current.json?key=db636d4f380641fbbd2114735230609&q=${city}&aqi=no`).
     then(function getWeather (res){
-    console.log(res);
-})
+    return res.data.current.condition.text;
+    })
+    .catch(function handleError(err) {
+        alert('Location not found try again !');
+    });
 }
 
+
+
+// get metric temperature degree
+
+export const getMetricTemp = (city)=>{
+    
+    axios.get(`https://api.weatherapi.com/v1/current.json?key=db636d4f380641fbbd2114735230609&q=${city}&aqi=no`).
+    then(function getWeather (res){
+    return res.data.current.temp_c;
+    })
+    .catch(function handleError(err) {
+        alert('Location not found try again !');
+    });
+}
+
+// get imperial temperature degree
+
+export const getImperialTemp = (city)=>{
+    
+    axios.get(`https://api.weatherapi.com/v1/current.json?key=db636d4f380641fbbd2114735230609&q=${city}&aqi=no`).
+    then(function getWeather (res){
+    return res.data.current.temp_f;
+    })
+    .catch(function handleError(err) {
+        alert('Location not found try again !');
+    });
+}
+
+// get state of the city
+
+export const getStatus = (city)=>{
+    
+    axios.get(`https://api.weatherapi.com/v1/current.json?key=db636d4f380641fbbd2114735230609&q=${city}&aqi=no`).
+    then(function getWeather (res){
+    return res.data.current.condition.text;
+    })
+    .catch(function handleError(err) {
+        alert('Location not found try again !');
+    });
+}
+
+
+// get icon for state of city
+
+export const getIcon = (city)=>{
+    axios.get(`https://api.weatherapi.com/v1/current.json?key=db636d4f380641fbbd2114735230609&q=${city}&aqi=no`).
+    then(function getWeather (res){
+    return res.data.current.condition.icon;
+    })
+    .catch(function handleError(err) {
+        alert('Location not found try again !');
+    });
+}
+
+
+   

@@ -17,7 +17,7 @@ function App() {
             <SearchBar/>
           </motion.div>
           <motion.div {...slideAnimation('left')}>
-            <ShowBar/>
+            <ShowBar cityName={'herat'} cityWeatherStatus={"sunny"} degree={25}/>
           </motion.div>
           <motion.div {...slideAnimation('down')}>
             <WeatherStatics/>

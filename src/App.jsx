@@ -3,7 +3,9 @@ import SearchBar from './components/SearchBar';
 import ShowBar from './components/ShowBar';
 import WeatherStatics from './components/WeatherStatics';
 import { slideAnimation } from './config/motion';
+import {WeatherApp} from './config/helpers';
 
+const newWeather = new WeatherApp();
 
 
 
@@ -17,7 +19,7 @@ function App() {
             <SearchBar/>
           </motion.div>
           <motion.div {...slideAnimation('left')}>
-            <ShowBar cityName={'herat'} cityWeatherStatus={"sunny"} degree={25}/>
+            <ShowBar/>
           </motion.div>
           <motion.div {...slideAnimation('down')}>
             <WeatherStatics/>

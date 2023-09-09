@@ -11,9 +11,6 @@ const SearchBar = () => {
   }
 
   const [city, setCity] = useState('');
-  
-
-
 
   const handleChange = event => {
     setCity(event.target.value);

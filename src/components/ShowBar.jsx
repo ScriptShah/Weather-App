@@ -1,17 +1,8 @@
 import React from 'react';
-import {getStatus,getMetricTemp,getImperialTemp,getIcon} from "../config/helpers";
-import SearchBar from './SearchBar';
-import { useState } from 'react';
 
 
-const ShowBar = () => {
-  const city = 'herat';
-  const cityStatusIcon = getIcon(city);
-  const cityWeatherStatus = getStatus(city);
-  const degree = getMetricTemp(city);
+const ShowBar = ({city,cityStatusIcon,cityWeatherStatus,degree}) => {
   
- 
-
     return (
       <>
         <div className="show__bar">

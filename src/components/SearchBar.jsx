@@ -3,31 +3,30 @@ import { useState } from 'react';
 import {getWeather} from '../config/helpers';
 import axios from "axios";
 
-const SearchBar = () => {
+const SearchBar = ({value,changeValue,enterPressed}) => {
   const [toggleState, setToggleState] = useState(1);
-  
   const toggleTab = (index) => {
     setToggleState(index);
   }
 
-  const [city, setCity] = useState('');
+  // const [city, setCity] = useState('');
 
-  const handleChange = event => {
-    setCity(event.target.value);
-  };
+  // const handleChange = event => {
+  //   setCity(event.target.value);
+  // };
 
 
-  const handleKeyDown = (event) => {
-    if (event.key === 'Enter') {
-      getWeather(event.target.value);
-    }
-  };
+  // const handleKeyDown = (event) => {
+  //   if (event.key === 'Enter') {
+  //     getWeather(event.target.value);
+  //   }
+  // };
   
 
   return (
     <div className="search__bar">
       <div className="search-bar__city">
-        <input type="text" className="search-bar__city-input" placeholder='Enter the city' onChange={handleChange} value={city} onKeyDown={handleKeyDown} />
+        <input type="text" className="search-bar__city-input" placeholder='Enter the city' onChange={changeValue} value={value}  onKeyDown={enterPressed}/>
       </div>
 
       <div className="spacer"></div>

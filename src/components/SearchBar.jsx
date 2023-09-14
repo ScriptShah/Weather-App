@@ -1,7 +1,6 @@
 import React from 'react'
 import { useState } from 'react';
-import {getWeather} from '../config/helpers';
-import axios from "axios";
+
 
 const SearchBar = ({value,changeValue,enterPressed}) => {
   const [toggleState, setToggleState] = useState(1);
@@ -9,18 +8,7 @@ const SearchBar = ({value,changeValue,enterPressed}) => {
     setToggleState(index);
   }
 
-  // const [city, setCity] = useState('');
 
-  // const handleChange = event => {
-  //   setCity(event.target.value);
-  // };
-
-
-  // const handleKeyDown = (event) => {
-  //   if (event.key === 'Enter') {
-  //     getWeather(event.target.value);
-  //   }
-  // };
   
 
   return (
@@ -44,7 +32,3 @@ const SearchBar = ({value,changeValue,enterPressed}) => {
 }
 
 export default SearchBar
-
-
-//onClick={() => {toggleTab(0)}}
-//onClick={() => {toggleTab(1)}}

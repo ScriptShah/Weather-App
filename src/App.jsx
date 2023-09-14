@@ -4,24 +4,44 @@ import ShowBar from './components/ShowBar';
 import WeatherStatics from './components/WeatherStatics';
 import { slideAnimation } from './config/motion';
 import { useState } from 'react';
+import {debounce,getWeather} from './config/helpers';
 
 
+
+
+  
 
 
 
 function App() {
 
   
-  const [city, setCity] = useState('');
+  const [city, setCity] = useState('Herat');
+  const [status, setStatus] = useState("Sunny");
+  const [degree, setDegree] = useState("0");
+  const [icon, setIcon] = useState("");
 
+  
+  
   const handleChange = event => {
     setCity(event.target.value);
-
   };
 
-    const handleKeyDown = (event) => {
+  // const debouncedFunc = () =>{getWeather(city)}
+  
+
+  const handleKeyDown = async (event) => {
     if (event.key === 'Enter') {
-      alert(city);
+      try {
+        const cityStatus = await getWeather(city,"cityStatus");
+        const cityDegree = await getWeather(city,"cityTemp_c");
+        const statusIcon = await getWeather(city,"statusIcon");
+        setStatus(cityStatus);
+        setDegree(cityDegree);
+        setIcon(statusIcon);
+      } catch (err) {
+        console.error(err);
+      }
     }
   };
   
@@ -34,7 +54,7 @@ function App() {
             <SearchBar value={city} changeValue={handleChange} enterPressed={handleKeyDown}/>
           </motion.div>
           <motion.div {...slideAnimation('left')}>
-            <ShowBar/>
+            <ShowBar location={city}  weatherStatus={status} weatherDegree={degree} weatherIcon={icon}/>
           </motion.div>
           <motion.div {...slideAnimation('down')}>
             <WeatherStatics/>
@@ -49,5 +69,3 @@ function App() {
 export default App;
 
 
-// 93a984c2321bd24125311f8482e7f687
-//https://api.openweathermap.org/data/2.5/weather?q=herat&appid=93a984c2321bd24125311f8482e7f687

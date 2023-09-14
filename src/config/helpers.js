@@ -1,27 +1,5 @@
 import axios from "axios";
 
-export class WeatherApp  {
-
-    constructor (location,format){
-        this.location = location;
-        this.format = format;
-    }
-
-    // condition of the location
-    condition (location,info){
-        axios.get(`https://api.weatherapi.com/v1/current.json?key=db636d4f380641fbbd2114735230609&q=${location}&aqi=no`).
-        then(function getWeather (res){
-            console.log(`res.data.current.${info}`);
-        return `res.data.current.${info}`;
-        })
-        .catch(function handleError(err) {
-            alert('Location not found try again !');
-        });
-    }
-
-
-}
-
 
 
 
@@ -33,65 +11,7 @@ export const randSelect = (ImageArray) => {
 
 
 
-// get metric temperature degree
-
-export const getMetricTemp = (city)=>{
-    
-    axios.get(`https://api.weatherapi.com/v1/current.json?key=db636d4f380641fbbd2114735230609&q=${city}&aqi=no`).
-    then(function getWeather (res){
-        console.log(res.data.current.temp_c);
-    return res.data.current.temp_c;
-    })
-    .catch(function handleError(err) {
-        alert('Location not found try again !');
-    });
-}
-
-// get imperial temperature degree
-
-export const getImperialTemp = (city)=>{
-    
-    axios.get(`https://api.weatherapi.com/v1/current.json?key=db636d4f380641fbbd2114735230609&q=${city}&aqi=no`).
-    then(function getWeather (res){
-        console.log(res.data.current.temp_f);
-    return res.data.current.temp_f;
-    })
-    .catch(function handleError(err) {
-        alert('Location not found try again !');
-    });
-}
-
-// get state of the city
-
-export const getStatus = (city)=>{
-    
-    axios.get(`https://api.weatherapi.com/v1/current.json?key=db636d4f380641fbbd2114735230609&q=${city}&aqi=no`).
-    then(function getWeather (res){
-        // console.log(res.data.current.temp.text);
-    return res.data.current.condition.text;
-    })
-    .catch(function handleError(err) {
-        alert('Location not found try again !');
-    });
-}
-
-
-// get icon for state of city
-
-export const getIcon = (city)=>{
-    axios.get(`https://api.weatherapi.com/v1/current.json?key=db636d4f380641fbbd2114735230609&q=${city}&aqi=no`).
-    then(function getWeather (res){
-        // console.log(res.data.current.condition.icon);
-    return res.data.current.condition.icon;
-    })
-    .catch(function handleError(err) {
-        alert('Location not found try again !');
-    });
-}
-
-// wait until user finish typing 
-
-export const debounce = (func, delay = 1000) => {
+export const debounce = (func, delay = 100) => {
     let timeoutId;
     return (...args) => {
       if (timeoutId) {
@@ -105,15 +25,28 @@ export const debounce = (func, delay = 1000) => {
      
 
 
+  export const getWeather = async (location,info) => {
+    try {
+      const response = await axios.get(`https://api.weatherapi.com/v1/current.json?key=db636d4f380641fbbd2114735230609&q=${location}&aqi=no`);
+      
+      switch(info) {
+        case 'cityTemp_c' : return response.data.current.temp_c;
+        break;
+        case 'cityTemp_f' : return response.data.current.temp_f;
+        break;
+        case 'statusIcon' : return response.data.current.condition.icon;
+        break;
+        case 'cityStatus': return response.data.current.condition.text;
+      }
 
-  export const getWeather = (city)=>{
-    
-    axios.get(`https://api.weatherapi.com/v1/current.json?key=db636d4f380641fbbd2114735230609&q=${city}&aqi=no`).
-   then(function getWeather (res){
-       console.log(res.data.current);
-   return res.data.current.condition.text;
-   })
-   .catch(function handleError(err) {
-       alert('Location not found try again !');
-   });
-}
+    } catch (err) {
+      alert('Location not found. Please try again!');
+      throw err;
+    }
+  };
+
+
+//   return response.data.current.temp_c;
+//   return response.data.current.temp_f;
+//  return response.data.current.condition.icon;
+//  return response.data.current.condition.text;

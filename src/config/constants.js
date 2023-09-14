@@ -21,4 +21,3 @@ export const cloudy = [Cloudy1th, Cloudy2th, Cloudy3th];
 export const rainy = [Rainy1th, Rainy2th, Rainy3th];
 export const snow = [Snow1th, Snow2th, Snow3th, Snow4th];
 export const sunny = [Sunny1th, Sunny2th, Sunny3th];
-

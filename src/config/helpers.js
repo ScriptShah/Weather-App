@@ -37,6 +37,24 @@ export const debounce = (func, delay = 100) => {
         case 'statusIcon' : return response.data.current.condition.icon;
         break;
         case 'cityStatus': return response.data.current.condition.text;
+        break;
+        case 'humidity' : return response.data.current.humidity;
+        break;
+        case 'pressure_mb' : return response.data.current.pressure_mb;
+        break;
+        case 'pressure_in' : return response.data.current.pressure_in;
+        break;
+        case 'feelslike_c' : return response.data.current.feelslike_c;
+        break;
+        case 'feelslike_f' : return response.data.current.feelslike_f;
+        break;
+        case 'wind_kph' : return response.data.current.wind_kph;
+        break;
+        case 'wind_mph' : return response.data.current.wind_mph;
+        break;
+
+
+
       }
       
 

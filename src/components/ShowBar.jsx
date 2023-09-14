@@ -9,7 +9,7 @@ const ShowBar = ({location,weatherStatus,weatherDegree,weatherIcon}) => {
           <div className="show__bar__city">
             <span className="show__bar__city__name">{location}</span>
             <span className="show__bar__city__status__icon">
-              <img src={weatherIcon} alt="City Status Icon" />
+              <img src={weatherIcon} className="cityStatus__icon" />
             </span>
             <span className="show__bar__city__weather__status">{weatherStatus}</span>
           </div>

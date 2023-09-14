@@ -21,7 +21,10 @@ function App() {
   const [status, setStatus] = useState("Sunny");
   const [degree, setDegree] = useState("30");
   const [icon, setIcon] = useState("http://cdn.weatherapi.com/weather/64x64/day/113.png");
-
+  const [pressure,setPressure] = useState("1000");
+  const [humidity,setHumidity] = useState("12");
+  const [windSpeed,setWindSpeed] = useState("10");
+  const [feelsLike,setSetFeelsLike] = useState("29");
   
   
   const handleChange = event => {
@@ -37,10 +40,18 @@ function App() {
         const cityStatus = await getWeather(city,"cityStatus");
         const cityDegree = await getWeather(city,"cityTemp_c");
         const statusIcon = await getWeather(city,"statusIcon");
+        const pressureData = await getWeather(city,"pressure_mb");
+        const humidityData = await getWeather(city,"humidity");
+        const windSpeedData = await getWeather(city,"wind_kph");
+        const feelsLikeData = await getWeather(city,"feelslike_c");
         setStatus(cityStatus);
         setDegree(cityDegree);
         setIcon(statusIcon);
-        setLocation(city);
+        setLocation(city.toUpperCase());
+        setPressure(pressureData);
+        setHumidity(humidityData);
+        setWindSpeed(windSpeedData);
+        setSetFeelsLike(feelsLikeData);
       } catch (err) {
         console.error(err);
       }
@@ -59,7 +70,7 @@ function App() {
             <ShowBar location={location}  weatherStatus={status} weatherDegree={degree} weatherIcon={icon}/>
           </motion.div>
           <motion.div {...slideAnimation('down')}>
-            <WeatherStatics/>
+            <WeatherStatics pressure={pressure} humidity={humidity} windSpeed ={windSpeed} feelsLike={feelsLike}/>
           </motion.div>
         </div>
       </AnimatePresence>

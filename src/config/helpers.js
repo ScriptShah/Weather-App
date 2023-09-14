@@ -38,6 +38,7 @@ export const debounce = (func, delay = 100) => {
         break;
         case 'cityStatus': return response.data.current.condition.text;
       }
+      
 
     } catch (err) {
       alert('Location not found. Please try again!');

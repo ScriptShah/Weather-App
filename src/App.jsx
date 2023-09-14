@@ -16,10 +16,11 @@ import {debounce,getWeather} from './config/helpers';
 function App() {
 
   
-  const [city, setCity] = useState('Herat');
+  const [city, setCity] = useState(' ');
+  const [location , setLocation] = useState("Herat")
   const [status, setStatus] = useState("Sunny");
-  const [degree, setDegree] = useState("0");
-  const [icon, setIcon] = useState("");
+  const [degree, setDegree] = useState("30");
+  const [icon, setIcon] = useState("http://cdn.weatherapi.com/weather/64x64/day/113.png");
 
   
   
@@ -39,6 +40,7 @@ function App() {
         setStatus(cityStatus);
         setDegree(cityDegree);
         setIcon(statusIcon);
+        setLocation(city);
       } catch (err) {
         console.error(err);
       }
@@ -54,7 +56,7 @@ function App() {
             <SearchBar value={city} changeValue={handleChange} enterPressed={handleKeyDown}/>
           </motion.div>
           <motion.div {...slideAnimation('left')}>
-            <ShowBar location={city}  weatherStatus={status} weatherDegree={degree} weatherIcon={icon}/>
+            <ShowBar location={location}  weatherStatus={status} weatherDegree={degree} weatherIcon={icon}/>
           </motion.div>
           <motion.div {...slideAnimation('down')}>
             <WeatherStatics/>

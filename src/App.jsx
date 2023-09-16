@@ -4,7 +4,8 @@ import ShowBar from './components/ShowBar';
 import WeatherStatics from './components/WeatherStatics';
 import { slideAnimation } from './config/motion';
 import { useState } from 'react';
-import {debounce,getWeather} from './config/helpers';
+import {getWeather, randSelect} from './config/helpers';
+import {cloudy,snow,sunny,rainy} from "./config/constants";
 
 
 
@@ -25,6 +26,7 @@ function App() {
   const [humidity,setHumidity] = useState("12");
   const [windSpeed,setWindSpeed] = useState("10");
   const [feelsLike,setSetFeelsLike] = useState("29");
+  const [background,setBackground] = useState(cloudy[0]);
   
   
   const handleChange = event => {
@@ -52,6 +54,17 @@ function App() {
         setHumidity(humidityData);
         setWindSpeed(windSpeedData);
         setSetFeelsLike(feelsLikeData);
+
+        
+        if(cityStatus == "sunny" || "clear"){
+          setBackground(randSelect(sunny));
+        }else if(cityStatus == "cloudy" || "partly cloudy") {
+          setBackground(randSelect(cloudy));
+        }else if (cityStatus == "snow") {
+          setBackground(randSelect(snow));
+        }else if (cityStatus == "rainy" || "rain" || "showers" || "thunder") {
+          setBackground(randSelect(rainy));
+        }
       } catch (err) {
         console.error(err);
       }
@@ -62,7 +75,7 @@ function App() {
 
     <>
       <AnimatePresence>
-        <div className="main__section">
+        <div className="main__section" style={{backgroundImage:`URL(${background})`}}>
           <motion.div {...slideAnimation('up') }>
             <SearchBar value={city} changeValue={handleChange} enterPressed={handleKeyDown}/>
           </motion.div>

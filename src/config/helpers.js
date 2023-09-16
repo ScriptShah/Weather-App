@@ -5,23 +5,13 @@ import axios from "axios";
 
 // Get an array and return a random element
 export const randSelect = (ImageArray) => {
-    const selector = Math.floor(Math.random * ImageArray.length);
+    const selector = Math.floor(Math.random() * ImageArray.length);
+    console.log(selector);
     return ImageArray[selector];
 }
 
 
 
-export const debounce = (func, delay = 100) => {
-    let timeoutId;
-    return (...args) => {
-      if (timeoutId) {
-        clearTimeout(timeoutId);
-      }
-      timeoutId = setTimeout(() => {
-        func.apply(null, args);
-      }, delay);
-    };
-  };
      
 
 
@@ -65,7 +55,3 @@ export const debounce = (func, delay = 100) => {
   };
 
 
-//   return response.data.current.temp_c;
-//   return response.data.current.temp_f;
-//  return response.data.current.condition.icon;
-//  return response.data.current.condition.text;

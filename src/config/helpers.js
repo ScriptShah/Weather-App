@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { Axios, AxiosError } from "axios";
 
 
 
@@ -6,7 +6,6 @@ import axios from "axios";
 // Get an array and return a random element
 export const randSelect = (ImageArray) => {
     const selector = Math.floor(Math.random() * ImageArray.length);
-    console.log(selector);
     return ImageArray[selector];
 }
 
@@ -49,8 +48,12 @@ export const randSelect = (ImageArray) => {
       
 
     } catch (err) {
-      alert('Location not found. Please try again!');
-      throw err;
+      if(err.message == "Network Error"){
+        alert('Check your internet connection !');
+      }else{
+        alert('Location not found. Please try again!');
+      }
+    throw err;
     }
   };
 

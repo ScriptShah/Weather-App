@@ -27,7 +27,29 @@ function App() {
   const [windSpeed,setWindSpeed] = useState("10");
   const [feelsLike,setSetFeelsLike] = useState("29");
   const [background,setBackground] = useState(cloudy[0]);
+  const [toggleState, setToggleState] = useState(1);
+  const [degSystem,setDegSystems] = useState("C");
+  const[pressureUnit,setPressureUnit] = useState("mb");
+  const[windSpeedUnit,setWindSpeedUnit] = useState("Kph");
+  const[feelsLikeUnit,setSetFeelsLikeUnit] = useState("C");
   
+
+  const tabToggle = (index) => {
+    setToggleState(index);
+    if(index==1){
+      setDegSystems("C");
+      setPressureUnit("mb");
+      setWindSpeedUnit("Kph");
+      setSetFeelsLikeUnit("C");
+    }else {
+      setDegSystems("F");
+      setPressureUnit("in");
+      setWindSpeedUnit("Mph");
+      setSetFeelsLikeUnit("F");
+    }
+  }
+  
+
   
   const handleChange = event => {
     setCity(event.target.value);
@@ -38,38 +60,69 @@ function App() {
 
   const handleKeyDown = async (event) => {
     if (event.key === 'Enter') {
+
       try {
         const cityStatus = await getWeather(city,"cityStatus");
-        const cityDegree = await getWeather(city,"cityTemp_c");
+        const celsius = await getWeather(city,"cityTemp_c");
+        const fahrenheit = await getWeather(city,"cityTemp_f");
         const statusIcon = await getWeather(city,"statusIcon");
-        const pressureData = await getWeather(city,"pressure_mb");
+        const pressureDataImperial = await getWeather(city,"pressure_in");
+        const pressureDataMetric = await getWeather(city,"pressure_mb");
         const humidityData = await getWeather(city,"humidity");
-        const windSpeedData = await getWeather(city,"wind_kph");
-        const feelsLikeData = await getWeather(city,"feelslike_c");
-        setStatus(cityStatus);
-        setDegree(cityDegree);
+        const windSpeedDataImperial = await getWeather(city,"wind_mph");
+        const windSpeedDataMetric = await getWeather(city,"wind_kph");
+        const feelsLikeDataCelsius = await getWeather(city,"feelslike_c");
+        const feelsLikeDataFahrenheit = await getWeather(city,"feelslike_f");
+        
+      
+        
+        
         setIcon(statusIcon);
         setLocation(city.toUpperCase());
-        setPressure(pressureData);
+        setStatus(cityStatus);
         setHumidity(humidityData);
-        setWindSpeed(windSpeedData);
-        setSetFeelsLike(feelsLikeData);
+  
 
-        
-        if(cityStatus == "sunny" || "clear"){
-          setBackground(randSelect(sunny));
-        }else if(cityStatus == "cloudy" || "partly cloudy") {
-          setBackground(randSelect(cloudy));
-        }else if (cityStatus == "snow") {
-          setBackground(randSelect(snow));
-        }else if (cityStatus == "rainy" || "rain" || "showers" || "thunder") {
-          setBackground(randSelect(rainy));
+        if(degSystem=="C"){
+          setDegree(celsius);
+          setPressure(pressureDataMetric);
+          setWindSpeed(windSpeedDataMetric);
+          setSetFeelsLike(feelsLikeDataCelsius);
+        } else {
+          setDegree(fahrenheit);
+          setPressure(pressureDataImperial);
+          setWindSpeed(windSpeedDataImperial);
+          setSetFeelsLike(feelsLikeDataFahrenheit);
         }
+
+        if (cityStatus.includes("Sunny")  || cityStatus.includes("Clear")) {
+          console.log(cityStatus);
+          setBackground(randSelect(sunny));
+        } else if (cityStatus.includes("Cloudy") || cityStatus.includes("Partly cloudy")) {
+   
+          setBackground(randSelect(cloudy));
+        } else if (cityStatus.includes("Snow")) {
+
+          setBackground(randSelect(snow));
+        } else if (
+          cityStatus.includes("rain") ||
+          cityStatus.includes("Light rain")  ||
+          cityStatus.includes("Showers")  ||
+          cityStatus.includes("Thunder")
+        ) {
+          setBackground(randSelect(rainy));
+        }else{
+          setBackground(cloudy[0]);
+        }
+
       } catch (err) {
         console.error(err);
       }
     }
   };
+  
+
+
   
   return (
 
@@ -77,14 +130,18 @@ function App() {
       <AnimatePresence>
         <div className="main__section" style={{backgroundImage:`URL(${background})`}}>
           <motion.div {...slideAnimation('up') }>
-            <SearchBar value={city} changeValue={handleChange} enterPressed={handleKeyDown}/>
+            <SearchBar value={city} changeValue={handleChange} enterPressed={handleKeyDown} toggle={toggleState} setToggle={setToggleState}toggledTab={tabToggle}/>
           </motion.div>
           <motion.div {...slideAnimation('left')}>
             <ShowBar location={location}  weatherStatus={status} weatherDegree={degree} weatherIcon={icon}/>
           </motion.div>
           <motion.div {...slideAnimation('down')}>
-            <WeatherStatics pressure={pressure} humidity={humidity} windSpeed ={windSpeed} feelsLike={feelsLike}/>
+            <WeatherStatics pressure={pressure} humidity={humidity} windSpeed ={windSpeed} feelsLike={feelsLike} pUnit={pressureUnit} wUnit={windSpeedUnit} fUnit={feelsLikeUnit} />
           </motion.div>
+          <motion.div {...slideAnimation('left')}>
+            <ShowBar location={location}  weatherStatus={status} weatherDegree={degree} weatherIcon={icon}/>
+          </motion.div>
+
         </div>
       </AnimatePresence>
     </>  

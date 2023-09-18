@@ -103,7 +103,7 @@ h6 {
   background-repeat: no-repeat;
   background-size: cover;
   color: #fff;
-  font-size: 28px;
+  font-size: 20px;
   font-weight: 700;
   font-family: 'Nunito', sans-serif;
 
@@ -150,13 +150,19 @@ h6 {
 
 
 .celsius-deg,.fahrenheit-deg{
-  background-color: #fff;
-  color: #000;
-  border-radius: 10px;
+  background-color: transparent;
+  color: #fff;
+  border-color: transparent;
   width: 70px;
   height: 40px;
+  font-size: 2rem;
   display: none;
 }
+
+.celsius-deg,.fahrenheit-deg:hover {
+  border-color: #fff;
+}
+
 
 .show__celsius-deg > .celsius-deg{
   display: block;
@@ -169,7 +175,7 @@ h6 {
 .show__bar{
   display: flex;
   width: 100%;
-  height: 220px;
+  height: 190px;
   flex-flow: row nowrap;
   align-items: center;
   justify-content: space-between;
@@ -196,7 +202,7 @@ h6 {
 
 .weatherStatics{
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: row nowrap;
   width: 100%;
   height: 100px;
   justify-content: center;
@@ -211,7 +217,7 @@ h6 {
   flex-flow: column nowrap;
   gap: 10px;
   background-color: rgba(12, 12, 12, 0.515);
-  padding: 20px;
+  padding:15px;
   border-radius: 15px;
 }
 
@@ -222,7 +228,5 @@ h6 {
   gap: 5px;
 }
 
-.statics__name{
-  font-size: 25px;
-}
+
 

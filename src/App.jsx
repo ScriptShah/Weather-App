@@ -4,6 +4,7 @@ import WeatherStatics from './components/WeatherStatics';
 import { useState } from 'react';
 import {getWeather, randSelect} from './config/helpers';
 import {cloudy,snow,sunny,rainy} from "./config/constants";
+import FiveDays from './components/FiveDays';
 
 
 
@@ -71,6 +72,8 @@ function App() {
         const windSpeedDataMetric = await getWeather(city,"wind_kph");
         const feelsLikeDataCelsius = await getWeather(city,"feelslike_c");
         const feelsLikeDataFahrenheit = await getWeather(city,"feelslike_f");
+        const date = await getWeather(city,"day");
+        console.log(date);
         
       
         
@@ -125,15 +128,10 @@ function App() {
   return (
 
         <div className="main__section" style={{backgroundImage:`URL(${background})`}}>
-
             <SearchBar value={city} changeValue={handleChange} enterPressed={handleKeyDown} toggle={toggleState} setToggle={setToggleState}toggledTab={tabToggle}/>
-
-
             <ShowBar location={location}  weatherStatus={status} weatherDegree={degree} weatherIcon={icon} unit={feelsLikeUnit}/>
-
-
             <WeatherStatics pressure={pressure} humidity={humidity} windSpeed ={windSpeed} feelsLike={feelsLike} pUnit={pressureUnit} wUnit={windSpeedUnit} fUnit={feelsLikeUnit} />
-
+            <FiveDays pressure={pressure} humidity={humidity} windSpeed ={windSpeed} feelsLike={feelsLike} pUnit={pressureUnit} wUnit={windSpeedUnit} fUnit={feelsLikeUnit} />
         </div>
   )
 }

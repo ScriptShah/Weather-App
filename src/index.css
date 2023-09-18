@@ -95,7 +95,7 @@ h6 {
 
 .main__section {
   display: flex;
-  flex-flow: column wrap;
+  flex-flow: column nowrap;
   align-items: center;
   justify-content: space-around;
   padding: 30px;
@@ -108,6 +108,7 @@ h6 {
   color: #fff;
   font-weight: 700;
   font-family: 'Nunito', sans-serif;
+  gap: 1rem;
 
 
 }
@@ -120,7 +121,7 @@ h6 {
   align-self: stretch;
   max-width: 100%;
   min-width: 100px;
-  height: 80px;
+  height: 75px;
   background-color: rgba(12, 12, 12, 0.515);
   border-radius: 5px;
   padding: 30px 10px;
@@ -228,12 +229,35 @@ h6 {
   border-radius: 15px;
 }
 
-.statics__icon{
+.statics__icon,.day__card__icon{
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 5px;
 }
+
+
+.FiveDays{
+  display: flex;
+  flex-flow: row wrap;
+  width: 80%;
+  height: 200px;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.day__card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: column nowrap;
+    gap: 10px;
+    background-color: rgba(12, 12, 12, 0.515);
+    padding:15px;
+    border-radius: 15px;
+  }
+
 
 
 

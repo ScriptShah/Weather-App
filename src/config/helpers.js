@@ -41,9 +41,7 @@ export const randSelect = (ImageArray) => {
         break;
         case 'wind_mph' : return response.data.current.wind_mph;
         break;
-
-
-
+        case 'day' : return response.data.current.is_day;
       }
       
 

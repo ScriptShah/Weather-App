@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-const ShowBar = ({location,weatherStatus,weatherDegree,weatherIcon}) => {
+const ShowBar = ({location,weatherStatus,weatherDegree,weatherIcon,unit}) => {
   
     return (
       <>
@@ -13,7 +13,7 @@ const ShowBar = ({location,weatherStatus,weatherDegree,weatherIcon}) => {
             </span>
             <span className="show__bar__city__weather__status">{weatherStatus}</span>
           </div>
-          <div className="show__bar__deg">{weatherDegree}°</div>
+          <div className="show__bar__deg">{weatherDegree}°{unit}</div>
         </div>
       </>
     );

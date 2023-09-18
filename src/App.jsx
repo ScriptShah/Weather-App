@@ -1,8 +1,6 @@
-import { AnimatePresence, motion } from 'framer-motion';
 import SearchBar from './components/SearchBar';
 import ShowBar from './components/ShowBar';
 import WeatherStatics from './components/WeatherStatics';
-import { slideAnimation } from './config/motion';
 import { useState } from 'react';
 import {getWeather, randSelect} from './config/helpers';
 import {cloudy,snow,sunny,rainy} from "./config/constants";
@@ -126,26 +124,17 @@ function App() {
   
   return (
 
-    <>
-      <AnimatePresence>
         <div className="main__section" style={{backgroundImage:`URL(${background})`}}>
-          <motion.div {...slideAnimation('up') }>
+
             <SearchBar value={city} changeValue={handleChange} enterPressed={handleKeyDown} toggle={toggleState} setToggle={setToggleState}toggledTab={tabToggle}/>
-          </motion.div>
-          <motion.div {...slideAnimation('left')}>
-            <ShowBar location={location}  weatherStatus={status} weatherDegree={degree} weatherIcon={icon}/>
-          </motion.div>
-          <motion.div {...slideAnimation('down')}>
+
+
+            <ShowBar location={location}  weatherStatus={status} weatherDegree={degree} weatherIcon={icon} unit={feelsLikeUnit}/>
+
+
             <WeatherStatics pressure={pressure} humidity={humidity} windSpeed ={windSpeed} feelsLike={feelsLike} pUnit={pressureUnit} wUnit={windSpeedUnit} fUnit={feelsLikeUnit} />
-          </motion.div>
-          <motion.div {...slideAnimation('left')}>
-            <ShowBar location={location}  weatherStatus={status} weatherDegree={degree} weatherIcon={icon}/>
-          </motion.div>
 
         </div>
-      </AnimatePresence>
-    </>  
-
   )
 }
 

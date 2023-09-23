@@ -32,68 +32,38 @@ function App() {
   const[windSpeedUnit,setWindSpeedUnit] = useState("Kph");
   const[feelsLikeUnit,setSetFeelsLikeUnit] = useState("C");
   
-
-  const tabToggle = (index) => {
-    setToggleState(index);
-    if(index==1){
-      setDegSystems("C");
-      setPressureUnit("mb");
-      setWindSpeedUnit("Kph");
-      setSetFeelsLikeUnit("C");
-    }else {
-      setDegSystems("F");
-      setPressureUnit("in");
-      setWindSpeedUnit("Mph");
-      setSetFeelsLikeUnit("F");
-    }
-  }
-  
-
   
   const handleChange = event => {
     setCity(event.target.value);
   };
 
-  // const debouncedFunc = () =>{getWeather(city)}
-  
 
+
+  
   const handleKeyDown = async (event) => {
     if (event.key === 'Enter') {
 
       try {
         const cityStatus = await getWeather(city,"cityStatus");
-        const celsius = await getWeather(city,"cityTemp_c");
-        const fahrenheit = await getWeather(city,"cityTemp_f");
-        const statusIcon = await getWeather(city,"statusIcon");
-        const pressureDataImperial = await getWeather(city,"pressure_in");
-        const pressureDataMetric = await getWeather(city,"pressure_mb");
         const humidityData = await getWeather(city,"humidity");
-        const windSpeedDataImperial = await getWeather(city,"wind_mph");
-        const windSpeedDataMetric = await getWeather(city,"wind_kph");
-        const feelsLikeDataCelsius = await getWeather(city,"feelslike_c");
-        const feelsLikeDataFahrenheit = await getWeather(city,"feelslike_f");
         const date = await getWeather(city,"day");
         console.log(date);
-        
-      
-        
-        
-        setIcon(statusIcon);
+        setIcon( await getWeather(city,"statusIcon"));
         setLocation(city.toUpperCase());
         setStatus(cityStatus);
         setHumidity(humidityData);
   
 
         if(degSystem=="C"){
-          setDegree(celsius);
-          setPressure(pressureDataMetric);
-          setWindSpeed(windSpeedDataMetric);
-          setSetFeelsLike(feelsLikeDataCelsius);
+          setDegree(Math.floor(await getWeather(city,"cityTemp_c")));
+          setPressure(await getWeather(city,"pressure_mb"));
+          setWindSpeed(await getWeather(city,"wind_kph"));
+          setSetFeelsLike(Math.floor(await getWeather(city,"feelslike_c")));
         } else {
-          setDegree(fahrenheit);
-          setPressure(pressureDataImperial);
-          setWindSpeed(windSpeedDataImperial);
-          setSetFeelsLike(feelsLikeDataFahrenheit);
+          setDegree(Math.floor(await getWeather(city,"cityTemp_f")));
+          setPressure(await getWeather(city,"pressure_in"));
+          setWindSpeed(await getWeather(city,"wind_mph"));
+          setSetFeelsLike(Math.floor(await getWeather(city,"feelslike_f")));
         }
 
         if (cityStatus.includes("Sunny")  || cityStatus.includes("Clear")) {
@@ -121,6 +91,35 @@ function App() {
       }
     }
   };
+  
+
+  const tabToggle = async(index) => {
+    setToggleState(index);
+    if(index==1){
+      setDegSystems("C");
+      setPressureUnit("mb");
+      setWindSpeedUnit("Kph");
+      setSetFeelsLikeUnit("C");
+      setDegree(Math.floor(await getWeather(city,"cityTemp_c")));
+      setPressure(await getWeather(city,"pressure_mb"));
+      setWindSpeed(await getWeather(city,"wind_kph"));
+      setSetFeelsLike(Math.floor(await getWeather(city,"feelslike_c")));
+
+    }else {
+      setDegSystems("F");
+      setPressureUnit("in");
+      setWindSpeedUnit("Mph");
+      setSetFeelsLikeUnit("F");
+      setDegree(Math.floor(await getWeather(city,"cityTemp_f")));
+      setPressure(await getWeather(city,"pressure_in"));
+      setWindSpeed(await getWeather(city,"wind_mph"));
+      setSetFeelsLike(Math.floor(await getWeather(city,"feelslike_f")));
+
+    }
+  }
+  
+
+
   
 
 

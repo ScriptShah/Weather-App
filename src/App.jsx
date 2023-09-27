@@ -2,7 +2,7 @@ import SearchBar from './components/SearchBar';
 import ShowBar from './components/ShowBar';
 import WeatherStatics from './components/WeatherStatics';
 import { useState } from 'react';
-import {getWeather, randSelect} from './config/helpers';
+import {getWeather, randSelect,getFiveDays,getDay} from './config/helpers';
 import {cloudy,snow,sunny,rainy} from "./config/constants";
 import FiveDays from './components/FiveDays';
 
@@ -31,6 +31,10 @@ function App() {
   const[pressureUnit,setPressureUnit] = useState("mb");
   const[windSpeedUnit,setWindSpeedUnit] = useState("Kph");
   const[feelsLikeUnit,setSetFeelsLikeUnit] = useState("C");
+  const[dayTwo,setDayTwo] = useState(30);
+  const[dayThree,setDayThree] = useState(30);
+  const[dayFour,setDayFour] = useState(30);
+  const[dayFive,setDayFive] = useState(30);
   
   
   const handleChange = event => {
@@ -46,19 +50,22 @@ function App() {
       try {
         const cityStatus = await getWeather(city,"cityStatus");
         const humidityData = await getWeather(city,"humidity");
-        const date = await getWeather(city,"day");
-        console.log(date);
         setIcon( await getWeather(city,"statusIcon"));
         setLocation(city.toUpperCase());
         setStatus(cityStatus);
         setHumidity(humidityData);
-  
+        getDay(city);
+        
 
         if(degSystem=="C"){
           setDegree(Math.floor(await getWeather(city,"cityTemp_c")));
           setPressure(await getWeather(city,"pressure_mb"));
           setWindSpeed(await getWeather(city,"wind_kph"));
           setSetFeelsLike(Math.floor(await getWeather(city,"feelslike_c")));
+          setDayTwo(Math.floor(await getFiveDays(city,"metric","dayTwo")));
+          setDayThree(Math.floor(await getFiveDays(city,"metric","dayThree")));
+          setDayFour(Math.floor(await getFiveDays(city,"metric","dayFour")));
+          setDayFive(Math.floor(await getFiveDays(city,"metric","dayFive")));
         } else {
           setDegree(Math.floor(await getWeather(city,"cityTemp_f")));
           setPressure(await getWeather(city,"pressure_in"));
@@ -104,6 +111,10 @@ function App() {
       setPressure(await getWeather(city,"pressure_mb"));
       setWindSpeed(await getWeather(city,"wind_kph"));
       setSetFeelsLike(Math.floor(await getWeather(city,"feelslike_c")));
+      setDayTwo(Math.floor(await getFiveDays(city,"metric","dayTwo")));
+      setDayThree(Math.floor(await getFiveDays(city,"metric","dayThree")));
+      setDayFour(Math.floor(await getFiveDays(city,"metric","dayFour")));
+      setDayFive(Math.floor(await getFiveDays(city,"metric","dayFive")));
 
     }else {
       setDegSystems("F");
@@ -114,14 +125,22 @@ function App() {
       setPressure(await getWeather(city,"pressure_in"));
       setWindSpeed(await getWeather(city,"wind_mph"));
       setSetFeelsLike(Math.floor(await getWeather(city,"feelslike_f")));
+      setDayTwo(Math.floor(await getFiveDays(city,"imperial","dayTwo")));
+      setDayThree(Math.floor(await getFiveDays(city,"imperial","dayThree")));
+      setDayFour(Math.floor(await getFiveDays(city,"imperial","dayFour")));
+      setDayFive(Math.floor(await getFiveDays(city,"imperial","dayFive")));
 
     }
   }
-  
+
+
 
 
   
+ 
 
+
+  
 
   
   return (
@@ -130,7 +149,7 @@ function App() {
             <SearchBar value={city} changeValue={handleChange} enterPressed={handleKeyDown} toggle={toggleState} setToggle={setToggleState}toggledTab={tabToggle}/>
             <ShowBar location={location}  weatherStatus={status} weatherDegree={degree} weatherIcon={icon} unit={feelsLikeUnit}/>
             <WeatherStatics pressure={pressure} humidity={humidity} windSpeed ={windSpeed} feelsLike={feelsLike} pUnit={pressureUnit} wUnit={windSpeedUnit} fUnit={feelsLikeUnit} />
-            <FiveDays pressure={pressure} humidity={humidity} windSpeed ={windSpeed} feelsLike={feelsLike} pUnit={pressureUnit} wUnit={windSpeedUnit} fUnit={feelsLikeUnit} />
+            <FiveDays dayOne={degree}  dayTwo={dayTwo} dayThree={dayThree} dayFour={dayFour} dayFive={dayFive} fUnit={feelsLikeUnit} />
         </div>
   )
 }
